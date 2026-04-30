@@ -9,22 +9,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      # 2. Build Docker image
-      - name: Build Docker image
+      - name: Build Docker
         run: docker build -t myapp .
 
-      # 3. Run container
       - name: Run container
         run: docker run -d -p 8000:8000 -e DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} myapp
 
-      # 4. Wait for Django to start
-      - name: Wait for app
-        run: sleep 20
+      - name: Show running containers
+        run: docker ps -a
 
-      # 5. Test the app
+      - name: WAIT
+        run: sleep 10
+
+      - name: SHOW LOGS (THIS IS THE IMPORTANT STEP)
+        run: docker logs $(docker ps -aq | head -n 1)
+
       - name: Test app
         run: curl http://localhost:8000
