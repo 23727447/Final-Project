@@ -1,0 +1,22 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Build Docker
+        run: docker build -t myapp .
+
+      - name: Run container
+        run: docker run -d -p 8000:8000 -e DJANGO_SECRET_KEY=mysecretkey123 myapp
+
+      - name: Test app
+        run: curl http://localhost:8000
