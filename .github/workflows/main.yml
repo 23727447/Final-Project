@@ -16,7 +16,10 @@ jobs:
         run: docker build -t myapp .
 
       - name: Run container
-        run: docker run -d -p 8000:8000 -e DJANGO_SECRET_KEY=mysecretkey123 myapp
+        run: docker run -d -p 8000:8000 -e DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} myapp
+
+      - name: Wait for app
+        run: sleep 10
 
       - name: Test app
         run: curl http://localhost:8000
