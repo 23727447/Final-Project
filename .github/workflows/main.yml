@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Get your code
+      # 1. Checkout your code
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -21,8 +21,8 @@ jobs:
       - name: Run container
         run: docker run -d -p 8000:8000 -e DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} myapp
 
-      # 4. Show running containers
-      - name: Check containers
+      # 4. Show all containers (debug)
+      - name: Show containers
         run: docker ps -a
 
       # 5. Show container logs (VERY IMPORTANT)
@@ -31,8 +31,8 @@ jobs:
 
       # 6. Wait for app to start
       - name: Wait for app
-        run: sleep 25
+        run: sleep 20
 
-      # 7. Test if app works
+      # 7. Test the app
       - name: Test app
         run: curl http://localhost:8000
