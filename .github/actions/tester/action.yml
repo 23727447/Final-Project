@@ -1,0 +1,10 @@
+name: "Test App"
+description: "Check if app is running"
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        echo "Testing app..."
+        curl http://localhost:8000
+      shell: bash
