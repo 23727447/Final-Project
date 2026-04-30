@@ -1,0 +1,1 @@
+docker_image = "your-dockerhub-username/myapp:latest"
