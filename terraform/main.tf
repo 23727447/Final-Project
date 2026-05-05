@@ -25,17 +25,17 @@ resource "azurerm_container_group" "app" {
     memory = "1.5"
 
     ports {
-      port     = 8000
+      port     = 80
       protocol = "TCP"
     }
   }
 
   exposed_port {
-    port = 8000
+    port = 80
   }
 }
 
 # OUTPUT URL
 output "app_url" {
-  value = "http://${azurerm_container_group.app.fqdn}:8000"
+  value = "http://${azurerm_container_group.app.fqdn}"
 }
